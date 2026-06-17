@@ -16,6 +16,8 @@ print(tata_car.get_brand_value())
 print("After set the brand name ")
 tata_car.set_brand_value("Tesla")
 print(tata_car.get_brand_value())
+
+
 """
 Python uses name mangling, not true privacy. A variable named __brand is internally renamed to _ClassName__brand. 
 This prevents accidental access and naming conflicts, but it can still be accessed if someone intentionally uses the mangled name.

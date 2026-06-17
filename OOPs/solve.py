@@ -28,13 +28,28 @@ Method overriding
 Default parameters
 *args and **kwargs
 '''
+"""
+Does Python support method overloading?
 
+No, Python does not support true method overloading like Java. 
+If multiple methods with the same name are defined, the last definition overrides the previous ones. 
+Similar behavior can be achieved using default arguments, *args, or **kwargs.
+"""
+"""
+A static method is a method that belongs to a class rather than an instance. It is defined using the @staticmethod decorator 
+and does not receive self or cls as an argument. Static methods are typically used for utility functions related to 
+the class but that do not need access to instance or class data.
+"""
    
 class Car:
+    
+    total_cars = 0      # Class Variable - belongs to Class
 
     def __init__(self, brand, model):
-        self.brand = brand
+        self.brand = brand #instant variable - belongs to Object
         self.model = model
+        
+        Car.total_cars += 1 #Car.total_cars = Car.total_car+1
     
     def full_car_name(self):
         return (f"Full Car Name = {self.brand} {self.model}")   
@@ -42,6 +57,11 @@ class Car:
     #polymorphism
     def fuel_type(self):
         return "Use Petrol or Desel" 
+    
+    #static method
+    @staticmethod 
+    def genaral_car_desc():
+        return "Cae is a use full object"
 
 #inheritance
 class ElectricCar(Car):
@@ -64,6 +84,15 @@ print(f"Electric Car = {electric_meta_car.brand} {electric_meta_car.model} {elec
 print(f"Full name = {electric_meta_car.full_car_name()}")
 print(electric_meta_car.fuel_type())
 
+
+tata_car = Car("Tata", "SUV")
+
+tata_car2 = Car("Tata", "Ola")
+
+print(Car.genaral_car_desc())
+# print(tata_car.genaral_car_desc()) #not possivbe beacuse tata_car is a instant and Car is a class
+
+print(f"Total no of car {Car.total_cars}")
 
 
 
