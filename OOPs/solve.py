@@ -78,11 +78,15 @@ print(f"Tata Car Brand= {tata_car.brand}")
 print(f"Tata Car Model= {tata_car.model}")
 print(tata_car.full_car_name())
 print(tata_car.fuel_type())
+print(f"tata_car is a instance of Car Class = {isinstance(tata_car, Car)}")
+print(f"tata_car is a instance of ElectricCar Class = {isinstance(tata_car, ElectricCar)}")
   
 electric_meta_car = ElectricCar("Tata Electric", "Meta", "Medium")
 print(f"Electric Car = {electric_meta_car.brand} {electric_meta_car.model} {electric_meta_car.battery_size}")
 print(f"Full name = {electric_meta_car.full_car_name()}")
 print(electric_meta_car.fuel_type())
+print(f"electric car is a instance of Car Class = {isinstance(electric_meta_car, Car)}")
+print(f"electric car is a instance of ElectricCar Class = {isinstance(electric_meta_car, ElectricCar)}")
 
 
 tata_car = Car("Tata", "SUV")
