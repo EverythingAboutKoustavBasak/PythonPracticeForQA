@@ -10,4 +10,7 @@ except ValueError:
     print("Input Wrong Value!")  
 except IndexError:
     print("Index Out of bounr or maybe wrong pls check")
+    
+finally:
+    print("Always Executed")
 
