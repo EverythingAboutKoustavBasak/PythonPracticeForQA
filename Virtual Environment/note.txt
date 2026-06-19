@@ -1,0 +1,59 @@
+A virtual environment is an isolated Python environment that allows a project to have its own dependencies and package 
+versions without affecting other projects or the global Python installation. 
+It helps avoid dependency conflicts and improves reproducibility.
+
+
+Think of it as: Each project gets its own Python packages and dependencies.
+
+Problem Without Virtual Environment
+
+Suppose:
+
+Project A
+Needs:
+selenium==4.20.0
+pandas==2.2.2
+
+Project B
+Needs:
+selenium==3.141.0
+pandas==1.5.0
+
+If everything is installed globally:
+
+pip install selenium
+pip install pandas
+
+The projects can conflict with each other.
+
+Solution: Virtual Environment
+Project_A
+│
+├── venv
+├── main.py
+└── requirements.txt
+
+Project_B
+│
+├── venv
+├── main.py
+└── requirements.txt
+
+Each project has its own packages.
+
+
+!Important
+# Create
+python -m venv venv
+
+# Activate (Windows)
+venv\Scripts\activate
+
+# Install packages
+pip install pandas
+
+# Save dependencies
+pip freeze > requirements.txt
+
+# Deactivate
+deactivate
