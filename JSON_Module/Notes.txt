@@ -1,0 +1,41 @@
+
+What is sort_keys=True in json.dumps()?
+sort_keys=True sorts dictionary keys alphabetically before converting the Python object to a JSON string. 
+It is commonly used to produce consistent JSON output for comparison, logging, testing, and version control.
+
+Quick Memory Trick
+json.dumps(data) - Keep original key order
+json.dumps(data, sort_keys=True) - Sort keys alphabetically before converting to JSON. 
+
+
+example1 - 
+code:
+import json
+
+data = {
+    "Role": "SDET",
+    "Name": "Koustav",
+    "Age": 25
+}
+
+print(json.dumps(data, sort_keys=True))
+
+Output (Note: are sorted alphabetically.)- 
+{"Age": 25, "Name": "Koustav", "Role": "SDET"}
+
+
+Example2 - 
+Code -
+import json
+
+data = {
+    "Role": "SDET",
+    "Name": "Koustav",
+    "Age": 25
+}
+
+print(json.dumps(data))
+
+Output (Note: Keys appear in the order they were inserted.)- 
+{"Role": "SDET", "Name": "Koustav", "Age": 25}
+
