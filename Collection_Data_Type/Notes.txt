@@ -1,0 +1,244 @@
+| Feature    | List | Set | Tuple | Dict   |
+| ---------- | ---- | --- | ----- | ------ |
+| Ordered    | ✅    | ❌   | ✅ | ✅      |
+| Mutable    | ✅    | ✅   | ❌ | ✅      |
+| Duplicates | ✅    | ❌   | ✅ | Keys ❌ |
+| Indexing   | ✅    | ❌   | ✅ | ❌      |
+| Key-Value  | ❌    | ❌   | ❌ | ✅      |
+--------------------------------------------------------------
+
+1. List → Ordered Collection (Duplicates Allowed)
+Use when:
+Order matters
+Duplicates are allowed
+You need indexing
+Example: Test Cases
+test_cases = [
+    "Login Test",
+    "Search Test",
+    "Logout Test"
+]
+
+Access:
+
+print(test_cases[0])
+
+Output:
+
+Login Test
+Why List?
+
+Because test cases run in a specific order.
+
+1. Login
+2. Search
+3. Logout
+
+Order is important.
+
+QA Example
+
+Store failed test cases:
+
+failed_tests = [
+    "TC_001",
+    "TC_005",
+    "TC_008"
+]
+----------------------------------------------------
+2. Set → Unique Values Only
+Use when:
+No duplicates allowed
+Fast lookup needed
+Example: Unique Browsers Tested
+browsers = {
+    "Chrome",
+    "Firefox",
+    "Chrome",
+    "Edge"
+}
+
+Output:
+
+{'Chrome', 'Firefox', 'Edge'}
+
+Duplicate Chrome removed automatically.
+
+QA Example
+
+Unique defects reported:
+
+defects = {
+    "BUG-101",
+    "BUG-102",
+    "BUG-101"
+}
+
+Result:
+
+{'BUG-101', 'BUG-102'}
+
+No duplicates.
+
+Another Example
+
+Usernames already registered:
+
+existing_users = {
+    "admin",
+    "john",
+    "koustav"
+}
+
+Check:
+
+if "john" in existing_users:
+    print("Already exists")
+
+Very fast.
+----------------------------------------------------------------------------
+3. Tuple → Fixed Data (Cannot Change)
+Use when:
+Data should not change
+Read-only values
+Coordinates/configuration
+Example
+
+Screen resolution:
+
+resolution = (1920, 1080)
+
+Nobody should accidentally change it.
+
+QA Example
+
+Database connection config:
+
+db_server = (
+    "localhost",
+    3306
+)
+
+or
+
+browser_version = (
+    "Chrome",
+    "138"
+)
+
+These values are fixed.
+
+Another Example
+
+API Response Code + Message
+
+response = (
+    200,
+    "Success"
+)
+
+Access:
+
+status_code = response[0]
+message = response[1]
+-------------------------------------------------------------------------
+4. Dictionary → Key Value Pair
+Use when:
+You need labels
+You want to look up values by key
+QA Example: Test Case
+test_case = {
+    "title": "Login Test",
+    "expected": "Success",
+    "actual": "Success",
+    "status": "Passed"
+}
+
+Access:
+
+print(test_case["status"])
+
+Output:
+
+Passed
+API Testing Example
+
+Response:
+
+{
+    "id": 101,
+    "name": "Koustav",
+    "role": "SDET"
+}
+
+Python:
+
+response = {
+    "id": 101,
+    "name": "Koustav",
+    "role": "SDET"
+}
+
+Access:
+
+print(response["name"])
+
+Output:
+
+Koustav
+-------------------------------------------------------------------------------
+Real Life Comparison
+
+Imagine you're managing students.
+
+List
+students = [
+    "Rahul",
+    "Koustav",
+    "Priya"
+]
+
+Question:
+
+Who is the first student?
+
+List is perfect.
+
+Set
+students = {
+    "Rahul",
+    "Rahul",
+    "Koustav"
+}
+
+Question:
+
+How many unique students?
+
+Set is perfect.
+
+Tuple
+dob = (
+    28,
+    5,
+    1999
+)
+
+Question:
+
+Fixed date that shouldn't change.
+
+Tuple is perfect.
+
+Dictionary
+student = {
+    "name": "Koustav",
+    "age": 25,
+    "city": "Kolkata"
+}
+
+Question:
+
+What is the student's age?
+
+Dictionary is perfect.

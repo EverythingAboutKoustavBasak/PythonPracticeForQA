@@ -1,5 +1,5 @@
 # list - mutable
-#tuple - immutable - tuple object does not support itesm assignment
+#tuple - immutable - tuple object does not support items assignment
 
 test_type = ("Smoke", "Sanity", "End to End")
 print(test_type)
