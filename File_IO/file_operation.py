@@ -1,3 +1,6 @@
+import os
+
+
 
 print("----------Read File-------------------")
 file1 = open("demo.txt", "r")
@@ -16,4 +19,18 @@ file3 = open("demo1.txt", "a")
 file_write = file3.write("Koustav This side ")
 file3.close()
 
+print("----------Read File with syntax-------------------")
+with open("demo2.txt", "r") as file4:
+    data = file4.read()
+print(data)
 
+
+print("----------Write File with syntax-------------------")
+with open("demo2.txt", "w") as file5:
+    file5.write("\n Hi")
+    
+print("----------Delete file-------------------")
+#need to import os module to delete any file
+os.remove("demo2.txt")
+
+print("file deleted !!")
