@@ -17,5 +17,6 @@ for area in data["states"]:
 for area in data["states"]:
     del area["area_codes"]
     
-
+with open("new_states.json", "w") as file2:
+    json.dump(data, file2, indent=2)
     
