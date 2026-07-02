@@ -1,13 +1,29 @@
 [
     {
-        "title": "A",
+        "title": "1",
         "steps": [
-            "B",
-            "n",
-            "m"
+            "1"
         ],
         "expected": "1",
         "actual": "1",
+        "status": "passed"
+    },
+    {
+        "title": "2",
+        "steps": [
+            "2"
+        ],
+        "expected": "3",
+        "actual": "4",
+        "status": "failed"
+    },
+    {
+        "title": "2",
+        "steps": [
+            "3"
+        ],
+        "expected": "4",
+        "actual": "4",
         "status": "passed"
     }
 ]
