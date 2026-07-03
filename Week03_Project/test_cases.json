@@ -1,29 +1,32 @@
 [
     {
-        "title": "1",
+        "title": "a",
         "steps": [
-            "1"
+            "A",
+            "b"
         ],
-        "expected": "1",
-        "actual": "1",
+        "expected": "a",
+        "actual": "a",
         "status": "passed"
     },
     {
-        "title": "2",
+        "title": "B",
         "steps": [
-            "2"
+            "b",
+            "nm"
         ],
-        "expected": "3",
-        "actual": "4",
+        "expected": "b",
+        "actual": "c",
         "status": "failed"
     },
     {
-        "title": "2",
+        "title": "We",
         "steps": [
-            "3"
+            "S",
+            "d"
         ],
-        "expected": "4",
-        "actual": "4",
+        "expected": "s",
+        "actual": "s",
         "status": "passed"
     }
 ]
