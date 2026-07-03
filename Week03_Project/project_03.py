@@ -1,8 +1,10 @@
+import json
+import requests
+
+
 test_case_list=[]
 post_test_case_success_count = 0
 post_test_case_failed_count = 0
-total_post_test_cases_count = 0
-api_status_sent = ""
 
 #custome exception
 class EnterWrongInput(Exception):
@@ -67,8 +69,6 @@ for test_case in range(1, user_max_no_of_test_cases+1):
 
    
 # Step 2 — Write test cases to a .json file
-import json
-
 with open("test_cases.json", "w") as file:
     json.dump(test_case_list, file, indent=4)
 
@@ -78,8 +78,8 @@ print("\n[STEP 2] Writing test cases to test_cases.json ... Done")
 with open("test_cases.json", "r") as file:
     loaded_test_cases = json.load(file)
 
-print(loaded_test_cases)
-print(type(loaded_test_cases))
+# print(loaded_test_cases)
+# print(type(loaded_test_cases))
 # print(loaded_test_cases)
 print("\n[STEP 3] Reading test cases back from test_cases.json ... Done")
 
@@ -95,7 +95,6 @@ print("=============================================")
 print("            POSTING REPORT                     ")
 print("=============================================")
 
-import requests
 
 url = "https://jsonplaceholder.typicode.com/posts"
 
@@ -105,6 +104,8 @@ header_content = {
 
 for index, test_case in enumerate(loaded_test_cases, start=1):
 
+
+    api_status_sent = ""
     try:
         res = requests.post(url, 
                             headers=header_content, 
@@ -112,6 +113,8 @@ for index, test_case in enumerate(loaded_test_cases, start=1):
                             )
         
         response_data = res.json()
+        
+        
         
         if res.status_code==201:
             api_status_sent = "Request Sent Successfully to Server"
@@ -128,14 +131,12 @@ for index, test_case in enumerate(loaded_test_cases, start=1):
         
         
     except requests.exceptions.RequestException as e:
+       post_test_case_failed_count += 1       
+       print(f"\nTest Case {index}: {test_case['title']}")
+       print(f"Error            : {e}")                    # print the actual error
+       print("-" * 55)
+       continue
         
-        print(f"\nTest Case {index}: {test_case['title']}")
-        print(f"Status           : {api_status_sent}")
-        print(f"API Status Code  : {res.status_code}")
-        print(f"API Generated ID : {response_data['id']}")
-        print("-" * 55)
-        
-        continue
     
     # print(res.status_code)
     # print(res.text)
