@@ -50,7 +50,7 @@ python -m venv venv
 venv\Scripts\activate
 
 #if we use git bash use -> # Activate (Git Bash)
-source request_venv/Scripts/activate
+source [env-name]/Scripts/activate
 
 # Install packages
 pip install pandas
@@ -60,3 +60,6 @@ pip freeze > requirements.txt
 
 # Deactivate
 deactivate
+
+#dependencies installation through requirements.txt file
+pip install -r requirements.txt
