@@ -23,12 +23,13 @@ client = genai.Client(api_key=api_key)
 prompt1 = "What is Python?"
 prompt2 = "What is software testing?"
 prompt3 = "What is shift left testing?"
+prompt4 = "What is Playwrite testing?"
 
 try:
     # Generate response
     response = client.models.generate_content(
         model=model_name,
-        contents=prompt3
+        contents=prompt4
     )
 
     #print in a consol
