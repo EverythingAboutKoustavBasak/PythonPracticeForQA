@@ -1,0 +1,55 @@
+'''
+
+| Configuration                                   | Purpose                               | Recommended for SDET | Why it's useful                                 |
+| ----------------------------------------------- | ------------------------------------- | -------------------- | ----------------------------------------------- |
+| `temperature`                                   | Controls randomness                   | ⭐⭐⭐⭐⭐         | Generate consistent test cases                  |
+| `max_output_tokens`                             | Limits response length                | ⭐⭐⭐⭐⭐         | Prevent truncated or overly long responses      |
+| `response_mime_type`                            | Specifies output format               | ⭐⭐⭐⭐⭐         | Return JSON instead of plain text               |
+| `response_schema`                               | Defines JSON structure                | ⭐⭐⭐⭐⭐         | Structured output for Excel, ADO, databases     |
+| `system_instruction`                            | Sets the model's role                 | ⭐⭐⭐⭐⭐         | Make the model behave like a Senior QA Engineer |
+| `candidate_count` *(if supported by the model)* | Requests multiple response candidates | ⭐⭐⭐              | Compare alternative test suites                 |
+| `top_p`                                         | Controls diversity                    | ⭐⭐⭐              | Fine-tune output diversity                      |
+| `top_k`                                         | Limits token selection                | ⭐⭐                | Advanced tuning; rarely needed                  |
+| `stop_sequences`                                | Stops generation at specific text     | ⭐⭐⭐              | Prevent unwanted extra output                   |
+
+If I were mentoring an SDET who wants to build AI-powered QA tools, I'd recommend learning them in this order:
+
+
+'''
+
+
+
+
+
+
+from google import genai
+from google.genai import types
+from dotenv import load_dotenv
+import os
+
+
+load_dotenv()
+
+api_key = os.getenv("GEMINI_API_KEY")
+model_name = os.getenv("GEMINI_API_MODEL")
+prompt = """
+        wite test cases for login features 
+        make sure all functionality should be covered including positive, negative, edge cases
+        """
+
+client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
+
+responses = client.models.generate_content(
+    model = model_name,
+    contents = prompt,
+    
+    #configaration setup
+    config = types.GenerateContentConfig(
+        temperature = 0.1,
+        max_output_tokens = 3000
+    )
+    
+)
+
+print(responses.text)
+print(type(responses))
