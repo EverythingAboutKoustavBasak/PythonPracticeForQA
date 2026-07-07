@@ -31,6 +31,8 @@ try:
         model=model_name,
         contents=prompt4
     )
+    
+    # cofigration of temparature and the max token limitation for output
 
     #print in a consol
     print(response.text)
