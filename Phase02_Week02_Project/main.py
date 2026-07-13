@@ -71,6 +71,33 @@ except EmptyUserStory as e:
     sys.exit(1)
     
 print("[STEP 2] Reading user story from user_story.txt... Done✅")
-print(user_story_data)
+# print(user_story_data)
 
+
+# Step: 3 (	Build the prompt)
+
+# create system prompts
+SYSTEM_PROMPT = """
+                You are a Senior QA Engineer with 10+ years exeperience.
+
+                Generate:
+                - Functional Test Cases
+                - Negative Test Cases
+                - Boundary Test Cases
+                - Edge Cases
+
+                Return JSON only.
+
+                Include:
+                - Test Case ID
+                - Title
+                - Preconditions
+                - Steps
+                - Expected Result
+                - Priority
+                - Test Type
+            """
+ 
+#user story with acceptance criteria         
+user_prompt = user_story_data
 
