@@ -1,0 +1,6 @@
+As a registered user, I want to log in to the application using my email and password so that I can access my dashboard.
+Acceptance Criteria:
+1. Valid credentials should redirect to dashboard
+2. Invalid credentials should show an error message
+3. Empty fields should show a validation warning
+4. After 3 failed attempts, account should be locked
