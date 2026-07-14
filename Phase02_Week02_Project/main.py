@@ -3,6 +3,9 @@ from google.genai import types
 from dotenv import load_dotenv
 import os
 import sys
+from pydantic import BaseModel
+from typing import Literal
+
 
 
 print("=================================================")
@@ -75,29 +78,76 @@ print("[STEP 2] Reading user story from user_story.txt... Done✅")
 
 
 # Step: 3 (	Build the prompt)
+print("[STEP 3] Building prompt - Starting...")
 
 # create system prompts
 SYSTEM_PROMPT = """
-                You are a Senior QA Engineer with 10+ years exeperience.
+You are a Senior QA Engineer.
 
-                Generate:
-                - Functional Test Cases
-                - Negative Test Cases
-                - Boundary Test Cases
-                - Edge Cases
+Analyze the provided user story and acceptance criteria.
 
-                Return JSON only.
+Generate comprehensive test cases covering:
+- Functional scenarios
+- Positive scenarios
+- Negative scenarios
+- Boundary scenarios
+- Edge cases
 
-                Include:
-                - Test Case ID
-                - Title
-                - Preconditions
-                - Steps
-                - Expected Result
-                - Priority
-                - Test Type
-            """
- 
+Ensure test cases are clear, non-duplicative, and directly traceable
+to the requirements.
+
+Do not assume unsupported functionality.
+"""
+
+
+
+
+"""
+Pydantic Approach - validate the response data against TestCase Model
+TestCase is a Pydantic model that can define, validate, and structure data.
+This code creates a data model/schema using Pydantic. It defines exactly what one test case should look like.
+"""
+class TestCase(BaseModel):
+    test_case_id: str
+    title: str
+    preconditions: str
+    steps: list[str]
+    expected_result: str
+    priority: Literal[
+        "High",
+        "Medium",
+        "Low"
+    ]
+    test_type: Literal[
+        "Functional",
+        "Positive",
+        "Negative",
+        "Boundary",
+        "Edge Case"
+    ]
+    Status: Literal["Run", "Not Run"]
+
 #user story with acceptance criteria         
 user_prompt = user_story_data
 
+print("[STEP 3] Building prompt... Done✅")
+
+# #calling Gemeni API
+# client = genai.Client(api_key=api_key)
+
+# response = client.models.generate_content(
+    
+#     model=model_name,
+#     contents= user_prompt,
+    
+#     #configaration setup
+#     config=types.GenerateContentConfig(
+#         system_instruction=SYSTEM_PROMPT,
+#         temperature = 0.1,
+#         max_output_tokens = 3000,
+#         response_mime_type="application/json",
+#         response_schema=list[TestCase] #Return a list of test cases, and every test case should follow the TestCase structure.
+#     )
+# )
+
+# print(response)
