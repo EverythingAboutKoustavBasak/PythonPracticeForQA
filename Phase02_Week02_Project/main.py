@@ -23,7 +23,10 @@ class MissingAPIKeyOrModel(Exception):
 class EmptyUserStory(Exception):
     #Raised when the file(user story) is empty or missing
     pass
-    
+ 
+class InvalidAIResponse(Exception):
+    #Raised when the ai responses is not formated or empty
+    pass   
 
 
 
@@ -161,7 +164,7 @@ try:
         )
     )
     
-    test_cases = response.parsed #already parsed using your Pydantic schema - response_schema=list[TestCase] , Return List
+
 # Network-related failures - 
 except (httpx.TimeoutException, httpx.ConnectError) as e:
     print(f"Network Error: Unable to connect to the Gemini API. {e}")
@@ -172,10 +175,39 @@ except errors.APIError as e:
     print(f"Gemini API Error: {e}")
     sys.exit(1)
 
+#Any responses related failures    
+except InvalidAIResponse as e:
+    print(f"Error: {e}")
+    sys.exit(1)
+
 # Any unexpected Python/program error
 except Exception as e:
     print(f"Unexpected Error: {e}")
     sys.exit(1)
 
 print("[STEP 4] Calling Gemini API with configaration... Done✅")
-# print(test_cases)
+# print(response.parsed) #get the test cases in a list type
+
+"""
+#step: 5 (Parsing AI Response - no need 1st, 2nd and 3rd point to implement 
+beacuse of response.parsed all ready provide the list of data becuase i used the response_schema=list[TestCase]
+and used the pydantic model approach
+
+"""
+print("[STEP 5] Parsing AI Response - Starting...")
+
+try:
+    test_cases = response.parsed    # test_cases = response.parsed #already parsed using your Pydantic schema - response_schema=list[TestCase] , Return List
+
+    if test_cases is None:
+        raise InvalidAIResponse(
+            "Gemini returned an empty or invalid response."
+        )
+
+except InvalidAIResponse as e:
+    print(f"Gemini Response Error: {e}")
+    sys.exit(1)
+
+print("[STEP 5] Parsing AI Response... Done ✅")
+
+
