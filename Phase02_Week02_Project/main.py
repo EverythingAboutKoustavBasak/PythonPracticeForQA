@@ -211,3 +211,42 @@ except InvalidAIResponse as e:
 print("[STEP 5] Parsing AI Response... Done ✅")
 
 
+#step: 7 (Save to .json file)
+print("[STEP 7] Save to JSON File - Starting...")
+"""
+Why do we use model_dump() before json.dump()?
+answer:
+response.parsed returns Pydantic model objects (TestCase), not plain Python dictionaries. 
+The json.dump() function can only serialize standard Python data types like dictionaries, lists, strings, and numbers. 
+Therefore, we first call model_dump() on each Pydantic object to convert it into a dictionary, 
+and then json.dump() can successfully write it as JSON.
+
+Why did you use json.dump() instead of file.write()?
+answer: 
+file.write() can only write strings. My data was a Python list of dictionaries, not a string. 
+The json.dump() function automatically serializes Python objects into valid JSON and writes them to the file. 
+If I already had a JSON string, such as response.text, then I could use file.write() directly.
+
+point to be noted to write a file
+Use json.dump() when you have a Python object (list, dict, etc.).
+Use file.write() when you already have a string.
+
+"""
+import json
+
+try:
+    # Convert Pydantic objects into dictionaries
+    json_test_case = []  #it contain a test cases in a list of dictionaries way
+    for each_test_case_item in test_cases:
+        json_test_case.append(each_test_case_item.model_dump()) 
+
+    # Save the dictionaries into a JSON file
+    with open("generated_test_cases.json", "w", encoding="utf-8") as file:
+        json.dump(json_test_case, file, indent=4)
+        
+        
+except Exception as e:
+    print(f"Error while saving JSON file: {e}")
+    sys.exit(1)
+
+print("[STEP 7] Save to JSON File... Done ✅")
