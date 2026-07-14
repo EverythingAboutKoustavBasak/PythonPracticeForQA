@@ -5,6 +5,8 @@ import os
 import sys
 from pydantic import BaseModel
 from typing import Literal
+import httpx
+from google.genai import errors
 
 
 
@@ -96,6 +98,7 @@ Generate comprehensive test cases covering:
 Ensure test cases are clear, non-duplicative, and directly traceable
 to the requirements.
 
+The test cases must only cover behavior explicitly stated or logically required by the user story and acceptance criteria.
 Do not assume unsupported functionality.
 """
 
@@ -132,22 +135,47 @@ user_prompt = user_story_data
 
 print("[STEP 3] Building prompt... Done✅")
 
-# #calling Gemeni API
-# client = genai.Client(api_key=api_key)
 
-# response = client.models.generate_content(
-    
-#     model=model_name,
-#     contents= user_prompt,
-    
-#     #configaration setup
-#     config=types.GenerateContentConfig(
-#         system_instruction=SYSTEM_PROMPT,
-#         temperature = 0.1,
-#         max_output_tokens = 3000,
-#         response_mime_type="application/json",
-#         response_schema=list[TestCase] #Return a list of test cases, and every test case should follow the TestCase structure.
-#     )
-# )
+#Step: 4 (Call Gemini API with controlled parameters)
+print("[STEP 4] Calling Gemini API with configaration - Starting...")
 
-# print(response)
+
+#setup client 
+client = genai.Client(api_key=api_key)
+
+#calling api and get the responses
+try:
+    
+    response = client.models.generate_content(
+        
+        model=model_name,
+        contents= user_prompt,
+        
+        #configaration setup
+        config=types.GenerateContentConfig(
+            system_instruction=SYSTEM_PROMPT,
+            temperature = 0.1,
+            max_output_tokens = 3000,
+            response_mime_type="application/json", #to force an AI model to output its response strictly as a raw, valid JSON object
+            response_schema=list[TestCase] #Return a list of test cases, and every test case should follow the TestCase structure.
+        )
+    )
+    
+    test_cases = response.parsed #already parsed using your Pydantic schema - response_schema=list[TestCase] , Return List
+# Network-related failures - 
+except (httpx.TimeoutException, httpx.ConnectError) as e:
+    print(f"Network Error: Unable to connect to the Gemini API. {e}")
+    sys.exit(1)
+
+# Gemini API-related failures
+except errors.APIError as e:
+    print(f"Gemini API Error: {e}")
+    sys.exit(1)
+
+# Any unexpected Python/program error
+except Exception as e:
+    print(f"Unexpected Error: {e}")
+    sys.exit(1)
+
+print("[STEP 4] Calling Gemini API with configaration... Done✅")
+# print(test_cases)
