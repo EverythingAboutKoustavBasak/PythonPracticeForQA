@@ -91,6 +91,7 @@ You are a Senior QA Engineer.
 
 Analyze the provided user story and acceptance criteria.
 
+Generate between 5 and 10 high-quality test cases.
 Generate comprehensive test cases covering:
 - Functional scenarios
 - Positive scenarios
@@ -158,13 +159,13 @@ try:
         config=types.GenerateContentConfig(
             system_instruction=SYSTEM_PROMPT,
             temperature = 0.1,
-            max_output_tokens = 3000,
+            max_output_tokens = 5000,
             response_mime_type="application/json", #to force an AI model to output its response strictly as a raw, valid JSON object
             response_schema=list[TestCase] #Return a list of test cases, and every test case should follow the TestCase structure.
         )
     )
     
-
+    print(response)
 # Network-related failures - 
 except (httpx.TimeoutException, httpx.ConnectError) as e:
     print(f"Network Error: Unable to connect to the Gemini API. {e}")
