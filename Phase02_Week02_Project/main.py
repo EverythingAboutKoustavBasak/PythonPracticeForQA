@@ -103,7 +103,9 @@ Ensure test cases are clear, non-duplicative, and directly traceable
 to the requirements.
 
 The test cases must only cover behavior explicitly stated or logically required by the user story and acceptance criteria.
-Do not assume unsupported functionality.
+Do NOT assume unsupported functionality.
+Do NOT include any introductory phrases like 'Here are your test cases.'
+Do NOT include a summary or conclusion after the test cases
 """
 
 
