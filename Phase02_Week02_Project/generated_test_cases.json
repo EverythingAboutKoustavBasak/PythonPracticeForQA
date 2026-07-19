@@ -1,28 +1,28 @@
 [
     {
-        "test_case_id": "TC_01",
-        "title": "Successful Login with Valid Credentials",
-        "preconditions": "User is registered with email 'user@example.com' and password 'SecurePass123'.",
+        "test_case_id": "TC_LOGIN_001",
+        "title": "Successful login with valid credentials",
+        "preconditions": "User is registered with a valid email and password, and the account is active and unlocked.",
         "steps": [
             "Navigate to the login page.",
-            "Enter 'user@example.com' in the email field.",
-            "Enter 'SecurePass123' in the password field.",
-            "Click the 'Login' button."
+            "Enter the valid registered email in the email field.",
+            "Enter the correct password in the password field.",
+            "Click the login button."
         ],
-        "expected_result": "The user is successfully logged in and redirected to the dashboard.",
+        "expected_result": "The user is successfully authenticated and redirected to the dashboard.",
         "priority": "High",
         "test_type": "Positive",
         "Status": "Not Run"
     },
     {
-        "test_case_id": "TC_02",
-        "title": "Unsuccessful Login with Invalid Password",
-        "preconditions": "User is registered with email 'user@example.com'.",
+        "test_case_id": "TC_LOGIN_002",
+        "title": "Login failure with invalid credentials",
+        "preconditions": "User is registered.",
         "steps": [
             "Navigate to the login page.",
-            "Enter 'user@example.com' in the email field.",
-            "Enter 'WrongPassword' in the password field.",
-            "Click the 'Login' button."
+            "Enter the registered email.",
+            "Enter an incorrect password.",
+            "Click the login button."
         ],
         "expected_result": "An error message indicating invalid credentials is displayed, and the user remains on the login page.",
         "priority": "High",
@@ -30,57 +30,59 @@
         "Status": "Not Run"
     },
     {
-        "test_case_id": "TC_03",
-        "title": "Validation Warning for Empty Fields",
+        "test_case_id": "TC_LOGIN_003",
+        "title": "Validation warning when both email and password fields are empty",
         "preconditions": "User is on the login page.",
         "steps": [
-            "Leave both email and password fields empty.",
-            "Click the 'Login' button."
-        ],
-        "expected_result": "Validation warnings are displayed for both the email and password fields indicating they are required.",
-        "priority": "Medium",
-        "test_type": "Boundary",
-        "Status": "Not Run"
-    },
-    {
-        "test_case_id": "TC_04",
-        "title": "Validation Warning for Empty Password Field",
-        "preconditions": "User is on the login page.",
-        "steps": [
-            "Enter 'user@example.com' in the email field.",
+            "Leave the email field empty.",
             "Leave the password field empty.",
-            "Click the 'Login' button."
+            "Click the login button."
         ],
-        "expected_result": "A validation warning is displayed for the password field indicating it is required.",
+        "expected_result": "Validation warnings are displayed indicating that both email and password fields are required.",
         "priority": "Medium",
         "test_type": "Boundary",
         "Status": "Not Run"
     },
     {
-        "test_case_id": "TC_05",
-        "title": "Account Locking After Three Failed Attempts",
-        "preconditions": "User is registered with email 'user@example.com'.",
+        "test_case_id": "TC_LOGIN_004",
+        "title": "Validation warning when password field is empty",
+        "preconditions": "User is on the login page.",
         "steps": [
-            "Enter 'user@example.com' and an incorrect password, then click 'Login' (Attempt 1).",
-            "Enter 'user@example.com' and an incorrect password, then click 'Login' (Attempt 2).",
-            "Enter 'user@example.com' and an incorrect password, then click 'Login' (Attempt 3)."
+            "Enter a valid email address.",
+            "Leave the password field empty.",
+            "Click the login button."
         ],
-        "expected_result": "An account locked message is displayed, and the account is locked from further login attempts.",
+        "expected_result": "A validation warning is displayed indicating that the password field is required.",
+        "priority": "Medium",
+        "test_type": "Boundary",
+        "Status": "Not Run"
+    },
+    {
+        "test_case_id": "TC_LOGIN_005",
+        "title": "Account locking after three consecutive failed login attempts",
+        "preconditions": "User is registered and the account is currently unlocked.",
+        "steps": [
+            "Enter valid email and incorrect password, then click login (Attempt 1).",
+            "Enter valid email and incorrect password, then click login (Attempt 2).",
+            "Enter valid email and incorrect password, then click login (Attempt 3)."
+        ],
+        "expected_result": "On the third failed attempt, the account is locked and an error message is displayed indicating the account is locked.",
         "priority": "High",
         "test_type": "Negative",
         "Status": "Not Run"
     },
     {
-        "test_case_id": "TC_06",
-        "title": "No Account Lock on Two Failed Attempts Followed by Success",
-        "preconditions": "User is registered with email 'user@example.com' and password 'SecurePass123'.",
+        "test_case_id": "TC_LOGIN_006",
+        "title": "Login attempt with valid credentials on a locked account",
+        "preconditions": "User account is locked due to three consecutive failed login attempts.",
         "steps": [
-            "Enter 'user@example.com' and an incorrect password, then click 'Login' (Attempt 1).",
-            "Enter 'user@example.com' and an incorrect password, then click 'Login' (Attempt 2).",
-            "Enter 'user@example.com' and the correct password 'SecurePass123', then click 'Login'."
+            "Navigate to the login page.",
+            "Enter the valid registered email.",
+            "Enter the correct password.",
+            "Click the login button."
         ],
-        "expected_result": "The user is successfully logged in and redirected to the dashboard without the account being locked.",
-        "priority": "Medium",
+        "expected_result": "Login fails, and an error message is displayed indicating that the account is locked.",
+        "priority": "High",
         "test_type": "Edge Case",
         "Status": "Not Run"
     }

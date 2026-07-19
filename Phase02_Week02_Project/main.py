@@ -167,7 +167,7 @@ try:
         )
     )
     
-    print(response)
+    # print(response)
 # Network-related failures - 
 except (httpx.TimeoutException, httpx.ConnectError) as e:
     print(f"Network Error: Unable to connect to the Gemini API. {e}")
@@ -195,7 +195,7 @@ and used the pydantic model approach
 print("[STEP 5] Parsing AI Response - Starting...")
 
 try:
-    test_cases = response.parsed    # test_cases = response.parsed #already parsed using your Pydantic schema - response_schema=list[TestCase] , Return List
+    test_cases = response.parsed     #already parsed using your Pydantic schema - response_schema=list[TestCase] , Return List
 
     if not test_cases: #Checking if not test_cases: catches both None and an empty list.
         raise InvalidAIResponse(
