@@ -1,0 +1,96 @@
+{
+    "feature_name": "UserLogin",
+    "test_cases": [
+        {
+            "test_case_id": "TC_LOGIN_001",
+            "title": "Verify successful login with valid credentials",
+            "preconditions": [
+                "User is registered in the system",
+                "User is on the login page"
+            ],
+            "steps": [
+                "Enter a valid username in the username field",
+                "Enter a valid password in the password field",
+                "Click the Login button"
+            ],
+            "expected_result": "User is successfully logged in and redirected to the Dashboard page",
+            "priority": "High",
+            "test_type": "Positive"
+        },
+        {
+            "test_case_id": "TC_LOGIN_002",
+            "title": "Verify login failure with invalid username",
+            "preconditions": [
+                "User is on the login page"
+            ],
+            "steps": [
+                "Enter an invalid username in the username field",
+                "Enter a valid password in the password field",
+                "Click the Login button"
+            ],
+            "expected_result": "An error message is displayed indicating invalid credentials",
+            "priority": "High",
+            "test_type": "Negative"
+        },
+        {
+            "test_case_id": "TC_LOGIN_003",
+            "title": "Verify login failure with invalid password",
+            "preconditions": [
+                "User is on the login page"
+            ],
+            "steps": [
+                "Enter a valid username in the username field",
+                "Enter an invalid password in the password field",
+                "Click the Login button"
+            ],
+            "expected_result": "An error message is displayed indicating invalid credentials",
+            "priority": "High",
+            "test_type": "Negative"
+        },
+        {
+            "test_case_id": "TC_LOGIN_004",
+            "title": "Verify login failure when username field is empty",
+            "preconditions": [
+                "User is on the login page"
+            ],
+            "steps": [
+                "Leave the username field empty",
+                "Enter a valid password in the password field",
+                "Click the Login button"
+            ],
+            "expected_result": "An error message is displayed indicating that the username is mandatory",
+            "priority": "High",
+            "test_type": "Negative"
+        },
+        {
+            "test_case_id": "TC_LOGIN_005",
+            "title": "Verify login failure when password field is empty",
+            "preconditions": [
+                "User is on the login page"
+            ],
+            "steps": [
+                "Enter a valid username in the username field",
+                "Leave the password field empty",
+                "Click the Login button"
+            ],
+            "expected_result": "An error message is displayed indicating that the password is mandatory",
+            "priority": "High",
+            "test_type": "Negative"
+        },
+        {
+            "test_case_id": "TC_LOGIN_006",
+            "title": "Verify login failure when both username and password fields are empty",
+            "preconditions": [
+                "User is on the login page"
+            ],
+            "steps": [
+                "Leave the username field empty",
+                "Leave the password field empty",
+                "Click the Login button"
+            ],
+            "expected_result": "An error message is displayed indicating that username and password are mandatory fields",
+            "priority": "Medium",
+            "test_type": "Negative"
+        }
+    ]
+}
