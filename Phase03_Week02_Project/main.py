@@ -8,8 +8,10 @@ from google.genai import types
 from dotenv import load_dotenv
 from pathlib import Path
 
-from models import TestCaseResponse
+from models import TestCaseResponse, AutomationResponse
 from prompts import TESTCASE_SYSTEM_PROMPT, AUTOMATION_SYSTEM_PROMPT
+from collections import defaultdict
+
 
 
 # Load environment variables
@@ -99,4 +101,168 @@ print(f"File created: {output_file}")
 
 
 
-#Stage-2(Genarated Selenium-java-TestNG-POM Automation Script)
+# ==========================================================
+# STAGE 2 - GENERATE JAVA SELENIUM AUTOMATION
+# ==========================================================
+
+
+# ==========================================================
+# GROUP TEST CASES BY MODULE
+# ==========================================================
+
+'''
+We need defaultdict(list) because you want to group multiple test cases under the same module_name 
+without manually creating a list for each new module.
+
+Suppose Stage 1 gives:
+
+TC001 → Login
+TC002 → Login
+TC003 → Profile
+TC004 → Login
+TC005 → Profile
+
+You want to transform that into:
+
+{
+    "Login": [TC001, TC002, TC004],
+    "Profile": [TC003, TC005]
+}
+
+'''
+
+grouped_test_cases = defaultdict(list)
+
+for test_case in test_case_response.test_cases:
+    grouped_test_cases[test_case.module_name].append(test_case)
+    
+
+
+
+# ==========================================================
+# CREATE AUTOMATION OUTPUT DIRECTORY
+# ==========================================================
+
+automation_folder = Path("output") / "automation_script"
+
+automation_folder.mkdir(
+    parents=True,
+    exist_ok=True
+)
+
+
+# ==========================================================
+# 12. GENERATE AUTOMATION FOR EACH MODULE
+# ==========================================================
+
+for module_name, test_cases in grouped_test_cases.items():
+
+    print(f"\nGenerating automation for module: {module_name}")
+
+
+    # ------------------------------------------------------
+    # Convert module test cases to JSON
+    # ------------------------------------------------------
+
+    module_test_cases = []
+
+    for test_case in test_cases:
+        module_test_cases.append(
+            test_case.model_dump()
+        )
+
+    module_test_cases_json = json.dumps(
+        module_test_cases,
+        indent=4
+    )
+
+
+    # ------------------------------------------------------
+    # Call Gemini
+    # ------------------------------------------------------
+    try:
+        
+        automation_response = client.models.generate_content(
+
+            model=model_name,
+
+            contents=f"""
+                    Generate Java Selenium automation for the following module.
+
+                    Module Name:
+                    {module_name}
+
+                    Test Cases:
+                    {module_test_cases_json}
+                    """,
+
+            config=types.GenerateContentConfig(
+                system_instruction=AUTOMATION_SYSTEM_PROMPT,
+                temperature=0.1,
+                response_mime_type="application/json",
+                response_schema=AutomationResponse
+            )
+        )
+    except Exception as e:
+        print(
+            f"Automation generation failed for "
+            f"{module_name}: {e}"
+        )
+        sys.exit(1)
+
+    # ------------------------------------------------------
+    # Get parsed response
+    # ------------------------------------------------------
+
+    automation = automation_response.parsed
+
+
+    if automation is None:
+        raise ValueError(
+            f"Failed to generate automation for module: {module_name}"
+        )
+
+
+    # ------------------------------------------------------
+    # Create Page Object Java file
+    # ------------------------------------------------------
+
+    page_file = (
+        automation_folder
+        / automation.page_object.file_name
+    )
+
+    with open(page_file, "w", encoding="utf-8") as file:
+        file.write(automation.page_object.code)
+
+
+    # ------------------------------------------------------
+    # Create Test Java file
+    # ------------------------------------------------------
+
+    test_file = (
+        automation_folder
+        / automation.test_class.file_name
+    )
+
+    with open(
+        test_file,
+        "w",
+        encoding="utf-8"
+    ) as file:
+
+        file.write(
+            automation.test_class.code
+        )
+
+
+    print(
+        f"Page Object created: {page_file}"
+    )
+
+    print(
+        f"Test class created: {test_file}"
+    )
+
+
+print("\nAll automation scripts generated successfully!")
