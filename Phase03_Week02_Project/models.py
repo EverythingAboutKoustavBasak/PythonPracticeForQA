@@ -4,6 +4,7 @@ from typing import Literal
 
 class TestCase(BaseModel):
     test_case_id: str
+    module_name: str
     title: str
     preconditions: list[str]
     steps: list[str]
@@ -23,7 +24,5 @@ class TestCase(BaseModel):
         "Edge Case"
     ]
 
-
 class TestCaseResponse(BaseModel):
-    feature_name: str
     test_cases: list[TestCase]
