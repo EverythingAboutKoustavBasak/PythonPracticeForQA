@@ -26,3 +26,16 @@ class TestCase(BaseModel):
 
 class TestCaseResponse(BaseModel):
     test_cases: list[TestCase]
+    
+    
+
+#Automation Script structure
+class JavaFile(BaseModel):
+    file_name: str
+    code: str
+
+
+class AutomationResponse(BaseModel):
+    module_name: str
+    page_object: JavaFile
+    test_class: JavaFile
