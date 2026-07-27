@@ -9,7 +9,8 @@ from dotenv import load_dotenv
 from pathlib import Path
 
 from models import TestCaseResponse
-from prompts import SYSTEM_PROMPT
+from prompts import TESTCASE_SYSTEM_PROMPT, AUTOMATION_SYSTEM_PROMPT
+
 
 # Load environment variables
 load_dotenv()
@@ -57,7 +58,7 @@ try:
             
             #configaration setup
             config=types.GenerateContentConfig(
-                system_instruction=SYSTEM_PROMPT,
+                system_instruction=TESTCASE_SYSTEM_PROMPT,
                 temperature = 0.1,
                 max_output_tokens = 5000,
                 response_mime_type="application/json", #to force an AI model to output its response strictly as a raw, valid JSON object
@@ -65,8 +66,8 @@ try:
             )
         )
 
-except Exception:
-    print("AI Calling Error !!!")
+except Exception as e:
+    print(f"AI Calling Error !!! - {e}")
     sys.exit(1) #program terminated beacuse of error
 
 
@@ -95,3 +96,7 @@ print("Test cases generated successfully!")
 print(f"File created: {output_file}")
 
 #End of Stage-1 (Genarating test case)
+
+
+
+#Stage-2(Genarated Selenium-java-TestNG-POM Automation Script)
