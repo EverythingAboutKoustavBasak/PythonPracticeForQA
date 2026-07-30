@@ -81,8 +81,12 @@ except Exception as e:
     sys.exit(1)
     
 # Save to JSON file
+
+os.makedirs("output", exist_ok=True)
+
+
 try:
-    with open("defect.json", "w", encoding="utf-8") as file:
+    with open("output/defect.json", "w", encoding="utf-8") as file:
         json.dump(defect_data, file, indent=4) #dump, converts the Python dictionary into JSON and writes it directly to the file
 
     print("Defect saved successfully to defect.json - ✅")
@@ -92,6 +96,12 @@ except Exception as e:
     
     
 """
+
+Why did you use mkdir(exist_ok=True) or os.makedirs(..., exist_ok=True)?
+Ans
+I use it to ensure the output directory exists before writing the file. If the folder doesn't exist, Python creates it. 
+If it already exists, exist_ok=True prevents a FileExistsError. 
+This makes the code more robust and avoids requiring manual folder creation.
 
 Why do we use json.dump(defect_data, file)? Why can't we write defect_data directly?
 Ans
