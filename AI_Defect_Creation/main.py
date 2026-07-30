@@ -6,7 +6,8 @@ from google import genai
 from google.genai import types
 from dotenv import load_dotenv
 
-from system_prompts import DEFECT_SYSTEM_PROMPT
+from prompts.defects_prompts.system_prompt import DEFECT_SYSTEM_PROMPT
+from prompts.defects_prompts.user_prompt import DEFECT_USER_PROMPT
 
 
 # Load environment variables
@@ -35,7 +36,7 @@ Stack Trace:
 LoginPage.java:42
 LoginTest.java:18
 """
-
+user_prompt = DEFECT_SYSTEM_PROMPT.format(failure_log=failure_log)
 
 #Create Gemini client
 client = genai.Client(api_key=api_key)
@@ -46,14 +47,14 @@ try:
     response = client.models.generate_content(
             
             model=model_name,
-            contents= f"""
-            Analyze the following automated test failure.
+            # contents= f"""
+            # Analyze the following automated test failure.
 
-            Generate a software defect in the required JSON format.
+            # Generate a software defect in the required JSON format.
             
-            {failure_log}
-            """,
-            
+            # {failure_log}
+            # """,
+            contents = user_prompt,
             #configaration setup
             config=types.GenerateContentConfig(
                 system_instruction=DEFECT_SYSTEM_PROMPT,
