@@ -36,7 +36,7 @@ Stack Trace:
 LoginPage.java:42
 LoginTest.java:18
 """
-user_prompt = DEFECT_SYSTEM_PROMPT.format(failure_log=failure_log)
+user_prompt = DEFECT_USER_PROMPT.format(failure_log=failure_log)
 
 #Create Gemini client
 client = genai.Client(api_key=api_key)
