@@ -1,0 +1,4 @@
+"""
+Small utility functions
+
+"""
