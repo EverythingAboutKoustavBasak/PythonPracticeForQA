@@ -1,0 +1,30 @@
+Scoring Feedback Functionality -
+---------------------------------------
+Description:
+-------------
+Add text boxes for "What Went Well", "What Can Improve", and "General Comments" 
+in the Detailed Insights MN Scoring Editing pop-up. 
+
+Include a way to send feedback (scores + comments) to the agent and download a copy of the feedback. 
+Potential implementation options:
+1. Add a button next to Save called "Save and Send"
+2. Add a pop-up upon hitting Save that says "Would you like to share this feedback?" with the options Not Now, 
+Email to Agent, and Download.
+
+Acceptance Criteria:
+---------------------
+Given that a team lead navigates to the MN scoring editing panel on Lead Handling Community Origin calls 
+and can accomplish the following within 2 clicks (ideally one):
+    adjust scoring
+    provide text input for 3 distinct areas (what went well, what can improve, and general comments)
+    save their changes
+    download a summary of the scores + feedback + call link to their local device   
+    email the same summary to the agent directly 
+
+example-
+1. Download button for scores
+2. Text input for 3 feedback areas
+Download should include feedback
+3. Devina to get agent emails
+4. Email summary to agent
+
