@@ -1,0 +1,65 @@
+{
+    "test_cases": [
+        {
+            "test_case_id": "TC001",
+            "title": "Verify saving adjusted scores and feedback in all three text boxes",
+            "preconditions": "Team lead is logged in and has navigated to the MN scoring editing panel on a Lead Handling Community Origin call.",
+            "steps": [
+                "Adjust the scoring values in the editing panel.",
+                "Enter text in the 'What Went Well' text box.",
+                "Enter text in the 'What Can Improve' text box.",
+                "Enter text in the 'General Comments' text box.",
+                "Click the Save button."
+            ],
+            "expected_result": "The adjusted scores and the text entered in all three feedback boxes are successfully saved.",
+            "priority": "High",
+            "status": "Not Run"
+        },
+        {
+            "test_case_id": "TC002",
+            "title": "Verify downloading the summary of scores, feedback, and call link to local device",
+            "preconditions": "Team lead is on the MN scoring editing panel with adjusted scores and filled feedback text boxes.",
+            "steps": [
+                "Click the Download button."
+            ],
+            "expected_result": "A summary file is downloaded to the local device containing the adjusted scores, the text from the three feedback areas, and the call link.",
+            "priority": "High",
+            "status": "Not Run"
+        },
+        {
+            "test_case_id": "TC003",
+            "title": "Verify emailing the summary of scores, feedback, and call link directly to the agent",
+            "preconditions": "Team lead is on the MN scoring editing panel with adjusted scores and filled feedback text boxes, and the agent's email is configured.",
+            "steps": [
+                "Click the option to email the summary to the agent."
+            ],
+            "expected_result": "An email containing the summary of scores, feedback, and the call link is successfully sent directly to the agent's email address.",
+            "priority": "High",
+            "status": "Not Run"
+        },
+        {
+            "test_case_id": "TC004",
+            "title": "Verify completing the save, download, and email actions within two clicks from the editing panel",
+            "preconditions": "Team lead has adjusted the scores and entered text in the three feedback boxes on the MN scoring editing panel.",
+            "steps": [
+                "Click the Save button to trigger the sharing options.",
+                "Select the option to email the summary to the agent and download it."
+            ],
+            "expected_result": "The changes are saved, the summary is downloaded to the local device, and the email is sent to the agent within two clicks.",
+            "priority": "Medium",
+            "status": "Not Run"
+        },
+        {
+            "test_case_id": "TC005",
+            "title": "Verify system behavior when emailing summary to an agent with no configured email address",
+            "preconditions": "Team lead is on the MN scoring editing panel for a call where the agent's email address cannot be retrieved.",
+            "steps": [
+                "Adjust the scoring and enter feedback in the three text boxes.",
+                "Click the option to email the summary to the agent."
+            ],
+            "expected_result": "The system displays an error message indicating the email could not be sent because the agent's email address is missing or cannot be retrieved.",
+            "priority": "Medium",
+            "status": "Not Run"
+        }
+    ]
+}
