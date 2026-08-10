@@ -23,4 +23,4 @@ from prompts import SYSTEM_PROMPT, build_prompt
 
 
 from .system_prompt import SYSTEM_PROMPT
-from .prompt_builder import build_prompt
+from .prompt_builder import build_user_prompt
