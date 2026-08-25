@@ -1,0 +1,4 @@
+USER STORY
+--------------------------
+The user should be able to log in using a valid email address and password. 
+After successful authentication, the user should be redirected to the dashboard.
