@@ -63,3 +63,6 @@ deactivate
 
 #dependencies installation through requirements.txt file
 pip install -r requirements.txt
+
+#if we create the venv in the wrong dir/project then we need to delete it by using - 
+rm -rf venv
